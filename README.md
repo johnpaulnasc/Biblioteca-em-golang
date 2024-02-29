@@ -15,13 +15,13 @@ Este projeto é um sistema de gerenciamento de biblioteca simples, escrito em Go
     cd biblioteca-golang
 
 2. **Instale as Dependências**:
-
+```
     go mod download
-
+```
 3. **Inicie o Servidor**:
-
+```
     go run ./cmd/api/main.go
-
+```
 ## Como Usar
 
 Após iniciar o servidor, você pode acessar a aplicação no navegador navegando até `http://localhost:8080`. Aqui estão algumas operações que você pode realizar:
