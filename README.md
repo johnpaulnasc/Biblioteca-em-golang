@@ -11,16 +11,16 @@ Este projeto é um sistema de gerenciamento de biblioteca simples, escrito em Go
 ## Como Configurar
 
 1. **Clone o Repositório**:
-git clone https://github.com/johnpaulnasc/biblioteca-golang.git 
-cd biblioteca-golang
+    git clone https://github.com/johnpaulnasc/Biblioteca-em-golang.git
+    cd biblioteca-golang
 
 2. **Instale as Dependências**:
 
-go mod download
+    go mod download
 
 3. **Inicie o Servidor**:
 
-go run ./cmd/api/main.go
+    go run ./cmd/api/main.go
 
 ## Como Usar
 
