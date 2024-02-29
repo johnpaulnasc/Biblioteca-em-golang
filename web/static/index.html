@@ -3,22 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Library Management System</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <h1>Library Management System</h1>
     <div id="bookList"></div>
 
+    <h2>Adicionar Livro</h2>
+    <form id="addBookForm">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" required><br>
+        <label for="genre">Gênero:</label>
+        <input type="text" id="genre" name="genre"><br>
+        <label for="publicationYear">Ano de Publicação:</label>
+        <input type="number" id="publicationYear" name="publicationYear"><br>
+        <label for="author">Autor:</label>
+        <input type="text" id="author" name="author" required><br>
+        <label for="publisher">Editora:</label>
+        <input type="text" id="publisher" name="publisher"><br>
+        <input type="submit" value="Adicionar Livro">
+    </form>
+
     <script>
-        fetch('/books')
-            .then(response => response.json())
-            .then(data => {
-                const bookList = document.getElementById('bookList');
-                data.forEach(book => {
-                    const bookElement = document.createElement('div');
-                    bookElement.textContent = `${book.title} by ${book.author}`;
-                    bookList.appendChild(bookElement);
+        $(document).ready(function() {
+            loadBooks();
+
+            $('#addBookForm').on('submit', function(e) {
+                e.preventDefault();
+                var book = {
+                    title: $('#title').val(),
+                    genre: $('#genre').val(),
+                    publicationYear: $('#publicationYear').val(),
+                    author: $('#author').val(),
+                    publisher: $('#publisher').val()
+                };
+                $.ajax({
+                    url: '/books/create',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(book),
+                    success: function() {
+                        alert('Livro adicionado com sucesso!');
+                        loadBooks();
+                    },
+                    error: function() {
+                        alert('Erro ao adicionar livro.');
+                    }
                 });
             });
+
+            function loadBooks() {
+                $.ajax({
+                    url: '/books',
+                    type: 'GET',
+                    success: function(data) {
+                        var bookList = $('#bookList');
+                        bookList.empty();
+                        data.forEach(function(book) {
+                            bookList.append('<div>' + book.title + ' by ' + book.author + '</div>');
+                        });
+                    },
+                    error: function() {
+                        alert('Erro ao carregar livros.');
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
