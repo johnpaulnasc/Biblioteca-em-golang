@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+ api:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/tmp
+      - db-data:/app/library.db
+    environment:
+      - DATABASE_URL=file:./library.db?cache=shared&mode=rwc&_fk=1
+
+volumes:
+ db-data:
